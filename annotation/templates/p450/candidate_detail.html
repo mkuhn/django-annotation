@@ -1,0 +1,34 @@
+{% extends "drugbank/base.html" %}
+                                                                           
+{% block title %}Targets interacting with {{ object.name|capfirst }} - MATADOR{% endblock %}
+
+{% block content %}
+
+{% if object %}
+	<div style="float: left; width: 20em">
+	    <p>{{ object.food.name }}</p>
+	    <p>{{ object.protein.name }}: {{ object.protein.annotation }}</p>
+
+		<form action=''>
+			<input name='ignore_food' type='checkbox'>Blacklist food ({{ object.food.name }})</input><br/>
+			<input name='ignore_protein' type='checkbox'>Blacklist protein ({{ object.protein.name }})</input><br/>
+			<input type='submit'>
+		</form>
+		
+		<p><a href="../">back to list</a></p>
+	</div>
+
+	<div style="margin-left: 20em">
+		{% for abstract in abstracts|dictsort:"score" %}
+			{{ abstract.annotation_links|safe }}<br>
+	    	{{ abstract.abstract|safe }}<br>
+			<hr>
+	    {% endfor %}
+	</div>
+
+
+{% else %}
+    <p>This drug is not available.</p>
+{% endif %}
+
+{% endblock %}

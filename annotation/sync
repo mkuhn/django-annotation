@@ -1,0 +1,3 @@
+./manage.py sqlclear p450 | psql -p 8800 django_se
+./manage.py syncdb
+echo "ANALYZE;" | psql -p 8800 django_se

@@ -1,0 +1,25 @@
+Prerequisites:
+
+Django 1.0
+postgresql
+Python 2.5+ with psycopg2 (Python 2.4 might also work)
+
+The database has to be set up and inserted in the right places (marked with TODO).
+A couple other places are also marked with TODO.
+
+
+Instructions:
+
+To prime the annotation pipeline, a list of interactions (in STRING textmining_interact.tsv format)
+has to be imported with extract_abstracts.py and put into a database (using Postgres). Then, run
+"sync" to import the candidate list. Next, start the server with "run" and start annotating.
+
+After the annotation is done, call the URL http://server/p450/candidates/export/ to dump the results.
+
+
+Limitations:
+
+- no support for concurrency (two people could be working on the same item)
+- no support for independent cross checking
+
+

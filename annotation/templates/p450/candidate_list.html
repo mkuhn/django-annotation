@@ -1,0 +1,28 @@
+{% extends "drugbank/base.html" %}
+
+
+{% block content %}
+
+{% if object_list %}
+	{% regroup object_list|dictsort:"from_file" by from_file as grouped1 %}
+	{% for group1 in grouped1 reversed %}
+		<li>{{ group1.grouper }} ({{ group1.list|length }} candidates)
+		{% regroup group1.list|dictsort:"annotation" by annotation as grouped2 %}
+		<ul>
+		{% for group2 in grouped2 %}
+	    	<li>{{ group2.grouper }} ({{ group2.list|length }} candidates)
+			<ul>
+			    {% for candidate in group2.list %}
+			        <li><a href="{{ candidate.id }}/">{{ candidate.food.name }} and {{ candidate.protein.name }} </a> {{ candidate.score }}</li>
+			    {% endfor %}
+			</ul>
+			</li>
+	    {% endfor %}
+	    </ul>
+		</li>
+    {% endfor %}
+{% else %}
+    <p>No drugs are available.</p>
+{% endif %}
+
+{% endblock %}
